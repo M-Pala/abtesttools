@@ -1,14 +1,37 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import { GrowthBook } from "@growthbook/growthbook";
 
-export default function Home() {
+const growthbook = new GrowthBook({
+  apiHost: "https://cdn.growthbook.io",
+  clientKey: "sdk-iIVUBuxMKHASTaOM",
+  enableDevMode: true,
+  subscribeToChanges: true,
+  // attributes: {
+  //   id: "438",
+  //   country: "US"
+  // },
+  trackingCallback: (experiment, result) => {
+    // TODO: Use your real analytics tracking system
+    console.log("Viewed Experiment", {
+      experimentId: experiment.key,
+      variationId: result.key,
+    });
+  },
+});
+
+export default async function Home() {
+  await growthbook.loadFeatures();
+
+  const isWelcomeBannerOn = growthbook.isOn("welcome-banner-01");
+  console.log(isWelcomeBannerOn);
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <p>
+        {isWelcomeBannerOn && <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.js</code>
-        </p>
+        </p>}
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
