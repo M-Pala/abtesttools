@@ -4,43 +4,51 @@ import styles from './page.module.css'
 import { GrowthBook } from "@growthbook/growthbook";
 // import { useEffect } from 'react';
 
-const growthbook = new GrowthBook({
-  apiHost: "https://cdn.growthbook.io",
-  clientKey: "sdk-iIVUBuxMKHASTaOM",
-  enableDevMode: true,
-  subscribeToChanges: true,
-  // attributes: {
-  //   id: "123",
-  //   country: "US"
-  // },
-  trackingCallback: (experiment, result) => {
-    // TODO: Use your real analytics tracking system
-    console.log("Viewed Experiment", {
-      experimentId: experiment.key,
-      variationId: result.key,
-    });
-  },
-});
-
+// const getUserId = async () => {
+//   console.log('here in user id');
+//   return Math.floor(Math.random()*1000000 + Date.now())
+// }
 export default async function Home() {
-  // useEffect(()=>{
-  // },[])
-  growthbook.setAttributes({
-    id: Math.floor(Math.random()*1000000),
-  })
-  console.log(growthbook.getAttributes('id'))
-  // console.log(Math.floor(Math.random()*1000000));
-  await growthbook.loadFeatures();
+  // let userId = await getUserId()
+  // const growthbook = new GrowthBook({
+  //   apiHost: "https://cdn.growthbook.io",
+  //   clientKey: "sdk-iIVUBuxMKHASTaOM",
+  //   enableDevMode: true,
+  //   subscribeToChanges: true,
+  //   attributes: {
+  //     id: userId,
+  //     country: "US"
+  //   },
+  //   trackingCallback: (experiment, result) => {
+  //     // TODO: Use your real analytics tracking system
+  //     console.log("Viewed Experiment", {
+  //       experimentId: experiment.key,
+  //       variationId: result.key,
+  //     });
+  //   },
+  // });
 
-  const isWelcomeBannerOn = growthbook.isOn("welcome-banner-01");
-  console.log(isWelcomeBannerOn);
+  // useEffect(()=>{
+  //   growthbook.setAttributes({
+  //     id: Math.floor(Math.random()*1000000),
+  //   })
+  //   console.log(growthbook.getAttributes('id'))
+  // },[])
+  // growthbook.setAttributes({
+  //   id: Math.floor(Math.random()*1000000),
+  // })
+  // console.log(Math.floor(Math.random()*1000000));
+  // await growthbook.loadFeatures();
+
+  // const isWelcomeBannerOn = growthbook.isOn("welcome-banner-01");
+  // console.log(isWelcomeBannerOn);
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        {isWelcomeBannerOn && <p>
+        <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.js</code>
-        </p>}
+        </p>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
