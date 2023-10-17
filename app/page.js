@@ -1,6 +1,8 @@
+// 'use client'
 import Image from 'next/image'
 import styles from './page.module.css'
 import { GrowthBook } from "@growthbook/growthbook";
+// import { useEffect } from 'react';
 
 const growthbook = new GrowthBook({
   apiHost: "https://cdn.growthbook.io",
@@ -8,7 +10,7 @@ const growthbook = new GrowthBook({
   enableDevMode: true,
   subscribeToChanges: true,
   // attributes: {
-  //   id: "438",
+  //   id: "123",
   //   country: "US"
   // },
   trackingCallback: (experiment, result) => {
@@ -21,6 +23,13 @@ const growthbook = new GrowthBook({
 });
 
 export default async function Home() {
+  // useEffect(()=>{
+  // },[])
+  growthbook.setAttributes({
+    id: Math.floor(Math.random()*1000000),
+  })
+  console.log(growthbook.getAttributes('id'))
+  // console.log(Math.floor(Math.random()*1000000));
   await growthbook.loadFeatures();
 
   const isWelcomeBannerOn = growthbook.isOn("welcome-banner-01");
