@@ -17,10 +17,10 @@ const growthbook = new GrowthBook({
 
 
 
-const ContextWrapper = ({ children }) => {
+const ContextWrapper = ({ children, clientIp }) => {
     const [isSticky, setIsSticky] = useState(false); // the state for the header sticky header
     const pathname = usePathname()
-
+    console.log(clientIp);
     const getUserId = async () => {
         // return String(Math.floor(Math.random()*10000000)) + '-v1'
         if(getSession('abUserID')){

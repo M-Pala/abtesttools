@@ -1,6 +1,9 @@
 import ContextWrapper from '@/components/contextWrapper'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
+
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,10 +13,13 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const header = headers()
+  // const ip = (header.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0]
+  const ip = (header.get('x-forwarded-for'))
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ContextWrapper>
+        <ContextWrapper clientIp={ip}>
           {children}
         </ContextWrapper>
       </body>
