@@ -1,14 +1,16 @@
-// 'use client'
+'use client'
 import Image from 'next/image'
 import styles from './page.module.css'
 import { GrowthBook } from "@growthbook/growthbook";
+import { useContext } from 'react';
+import HeaderContext from '@/context/headerContext';
 // import { useEffect } from 'react';
 
 // const getUserId = async () => {
 //   console.log('here in user id');
 //   return Math.floor(Math.random()*1000000 + Date.now())
 // }
-export default async function Home() {
+export default function Home() {
   // let userId = await getUserId()
   // const growthbook = new GrowthBook({
   //   apiHost: "https://cdn.growthbook.io",
@@ -42,6 +44,7 @@ export default async function Home() {
 
   // const isWelcomeBannerOn = growthbook.isOn("welcome-banner-01");
   // console.log(isWelcomeBannerOn);
+  const {userLoc} = useContext(HeaderContext)
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -49,6 +52,7 @@ export default async function Home() {
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.js</code>
         </p>
+        <p>{userLoc}</p>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"

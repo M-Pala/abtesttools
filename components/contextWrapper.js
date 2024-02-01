@@ -19,8 +19,8 @@ const growthbook = new GrowthBook({
 
 const ContextWrapper = ({ children, clientIp }) => {
     const [isSticky, setIsSticky] = useState(false); // the state for the header sticky header
+    const [userLoc, setUserLoc] = useState('US')
     const pathname = usePathname()
-    console.log(clientIp);
     const getUserId = async () => {
         // return String(Math.floor(Math.random()*10000000)) + '-v1'
         if(getSession('abUserID')){
@@ -49,11 +49,31 @@ const ContextWrapper = ({ children, clientIp }) => {
         setupGW()
       }, [pathname]);
 
+      useEffect(()=>{
+        const getCont = async () => {
+          const res = await fetch(`https://freeipapi.com/api/json/${clientIp}`)
+          const resData = await res.json()
+          console.log('here');
+          if(resData.countryCode){
+            if(resData.countryCode.length>0){
+              setUserLoc(resData.countryCode)
+            }
+            else{
+              setUserLoc('US')
+            }
+          }
+          else{
+            setUserLoc('US')
+          }
+        }
+        getCont()
+      },[clientIp])
 
     return (
         <HeaderContext.Provider
             value={{
                 isSticky, setIsSticky,
+                userLoc,
             }}
         >
             <GrowthBookProvider growthbook={growthbook}>
